@@ -1,0 +1,49 @@
+---
+import Card from "../../components/Card.astro";
+import MainLayout from "../../layout/MainLayout.astro";
+import beamer from "../../assets/beamer.jpg";
+import mertz from "../../assets/mertz.jpg";
+import alpha from "../../assets/alpha.jpg";
+const cards = [
+    {
+        img: beamer.src,
+        alt: "car",
+        pill: "technology",
+        title: "The Future of Cars",
+        description: "The future of cars is electric, autonomous, and connected.",
+        author_img: "https://avatar.iran.liara.run/public/boy",
+        author_name: "John Doe",
+        time: "2 hours ago"
+    },
+    {
+        img: alpha.src,
+        alt: "italian",
+        pill: "sport",
+        title: "Italian fashion for cars",
+        description: "The future of European car design seems to be in the hands of the Italians.",
+        author_img: "https://avatar.iran.liara.run/public/girl",
+        author_name: "Jane Doe",
+        time: "3 hours ago"
+    },
+    {
+        img: mertz.src,
+        alt: "mertz",
+        pill: "fun",
+        title: "The most reliable car in Europe",
+        description: "The most trusted car company is Mertz and this does not seem to change anytime soon, or at least that is what the German producers think...",
+        author_img: "https://avatar.iran.liara.run/public",
+        author_name: "Tiara Gomez",
+        time: "4 hours ago"
+    },
+]
+---
+<MainLayout title="My Cards">
+<div class="page">
+    <h2 class="text-center pt-2 border-b border-slate-200 font-medium mb-4">My Cards</h2>
+    <div class="card-container container mx-auto p-4 flex flex-col gap-12">
+        {cards.map((card) => (
+            <Card {...card} />
+        ))}
+    </div>
+</div>
+</MainLayout>  

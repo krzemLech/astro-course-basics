@@ -1,0 +1,19 @@
+---
+const { title, description, pill, img, alt, author_img, author_name, time } = Astro.props;
+---
+
+<article class="min-w-24 rounded-xl overflow-hidden shadow">
+    <img src={img} alt={alt} />
+    <div class="content p-6">
+        <p class="pill bg-blue-400 rounded-full text-blue-100 px-2 py-0.5 text-xs inline-block">{pill}</p>
+        <h2 class="my-2 font-semibold">{title}</h2>
+        <p class="mb-4 italic text-slate-500">{description}</p>
+        <div class="author flex gap-4 items-center">
+            <img src={author_img} alt={author_name} class="size-10"/>
+            <div>
+                <h3 class="font-medium">{author_name}</h3>
+                <p class="text-slate-500 text-sm">{time}</p>
+            </div>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,19 @@
+---
+const htmlString = `
+  <div class="edited-html">
+    <p>This is an HTML string that is inserted into the page.</p>
+  </div>
+`
+const htmlBgColor = '#444'
+---
+
+<div class="html-container" set:html={htmlString} />
+
+<style define:vars={{ htmlBgColor }}>
+    .html-container {
+        padding: 8px;
+        background-color: var(--htmlBgColor);
+        color: white;
+        margin-top: 2rem;
+    }
+</style>

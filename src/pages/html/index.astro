@@ -1,0 +1,15 @@
+---
+import MainLayout from "../../layout/MainLayout.astro";
+import Heading from "../../components/htmlCustomization/Heading.astro";
+import InsertHtml from "../../components/htmlCustomization/InsertHtml.astro";
+---
+
+<MainLayout>
+    <div class="container mx-auto mt-8">
+        <p class="border-b border-slate-200 mb-8 text-center font-semibold">HTML variations with Astro</p>
+        <Heading size="xl" tagName="h1">Heading 1</Heading>
+        <Heading size="lg" tagName="h2">Heading 2</Heading>
+        <Heading size="sm" tagName="h3">Heading 3</Heading>
+        <InsertHtml />
+    </div>
+</MainLayout>

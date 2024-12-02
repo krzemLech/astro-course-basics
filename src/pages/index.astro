@@ -1,0 +1,18 @@
+---
+import { Counter } from "../components/interactive/Counter"
+import MainLayout from "../layout/MainLayout.astro"
+
+const myNum = 42
+const myData = {
+	name: "Lech",
+	age: 25,
+	lastName: "Krzem",
+}
+---
+
+<MainLayout title="Home">
+	<h1>Hello, Astro!</h1>
+	<p>My favorite number is {myNum}</p>
+	<p>My name is {myData.name} {myData.lastName} and I'm {myData.age} years old.</p>
+	<Counter client:visible />
+</MainLayout>

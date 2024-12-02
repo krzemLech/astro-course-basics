@@ -1,0 +1,10 @@
+---
+import MainLayout from '../../layout/MainLayout.astro'
+import person from '../../data/personal.json'
+---
+
+<MainLayout title="About">
+    <h1>Hello!</h1>
+    <p>My name is {person.name} and I'm {person.age} years old.</p>
+    <p>If you wanna contact me, use {person.email}</p>
+</MainLayout>

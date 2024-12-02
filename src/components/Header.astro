@@ -1,0 +1,44 @@
+---
+import NavLink from './NavLink.astro'
+const links = [
+  { href: '/', text: 'Home' },
+  { href: '/about', text: 'About' },
+  { href: '/info', text: 'Info' },
+  { href: '/cards', text: 'Cards' },
+  { href: '/html', text: 'Html' },
+]
+---
+
+<header class="shadow-md px-8 py-2">
+    <div>Logo</div>
+    <nav>
+        <ul>
+            {links.map((link) => (
+               <NavLink href={link.href}>{link.text}</NavLink>
+            ))}
+        </ul>
+    </nav>
+    <div class="avatar">Avatar</div>
+</header>
+
+<style>
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f0f0f0;
+    }
+
+    nav ul {
+        display: flex;
+        list-style: none;
+        align-items: stretch;
+    }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+        background-color: #ccc;
+        border-radius: 50%;
+    }
+</style>
