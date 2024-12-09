@@ -1,0 +1,22 @@
+---
+// for SSR (server-side rendering), reqiores some adapter, node for local dev
+import { getEntry } from 'astro:content';
+import MainLayout from '../../../layout/MainLayout.astro';
+
+const { slug } = Astro.params;
+let author = await getEntry('authors', slug!);
+if (!author) {
+  return Astro.redirect('/404', 304);
+  // author = { data: {} };
+}
+
+console.log('author', author);
+---
+
+<MainLayout title="Author">
+  <div class="p-4 rounded border shadow-lg mt-8">
+    <h1>{author.data.name}</h1>
+    <p>{author.data.role}</p>
+    <p>{author.data.location || "unknown location"}</p>
+  </div>
+</MainLayout>;

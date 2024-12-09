@@ -1,0 +1,30 @@
+---
+title: Post Four - the MDX!
+layout: "../../layout/mdLayout.astro"
+---
+
+{/* using imports and js in mdx */}
+import { Counter } from "../../components/interactive/Counter.tsx";
+
+{/* custom styling for a component */}
+import CustomBlockquote from "../../components/mdx/CustomBlockquote.astro";
+export const components = { blockquote: CustomBlockquote };
+
+{/* using js variables */}
+export const salutation = "HowDy!";
+
+{/* actual content */}
+
+# {frontmatter.title}
+
+{salutation}
+
+This post shows the strenght of mdx, check out the counter below:
+
+<Counter client:load />
+
+After the countr you can check out the custom blockquote styling below:
+
+> This is a custom blockquote styling
+>
+> How do you like it?

@@ -1,0 +1,35 @@
+---
+import MainLayout from "../../../layout/MainLayout.astro";
+import { getCollection, getEntry, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection('postsWithImages');
+  return posts.map((post) => {
+    return {
+      params: {
+        slug: post.id
+      },
+      props: {
+        post,
+      }
+    }
+  });
+}
+
+const { post } = Astro.props;
+const author = await getEntry('authors', post.data.author?.id);
+const { Content } = await render(post);
+---
+
+<MainLayout>
+  <h2>{post.data.title}</h2>
+  <p>{post.data.isDraft}</p>
+  <Content />
+  <p class="text-sm text-slate-600 mt-4">by: {author.data.name}</p>
+</MainLayout>
+
+<style>
+  h3 {
+    color: green;
+  }
+</style>

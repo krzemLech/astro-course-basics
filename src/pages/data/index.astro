@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import MainLayout from '../../layout/MainLayout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+// Get all entries from a collection.
+// Requires the name of the collection as an argument.
+const team = await getCollection('team');
+const posts = await getCollection('posts');
+const postsWithImages = await getCollection('postsWithImages');
+// const members = team.data;
+const authors = await getCollection('authors');
+console.log('authors', authors);
+
+// Get a single entry from a collection.
+// Requires the name of the collection and `id`
+// const poodleData = await getEntry('dogs', 'poodle');
+---
+
+<MainLayout title="Data">
+  <p class="intro">This is a page with examples of <span class="emphasis">astro collections</span> use cases.</p>
+  <hr />
+  <h1>Team: </h1>
+  <ul>
+    {team.map((member) => (
+      <li>
+        <h2>{member.data.name}</h2>
+        <p>{member.data.role}</p>
+      </li>
+    ))}
+  </ul>
+  <hr />
+  <h1>Posts: </h1>
+  <ul>
+    {posts.map(async (post) => {
+      const author = await getEntry('team', post.data.author.id);
+      return <li>
+        <h2>{post.data.title}</h2>
+        <div class="post-content" set:html={post.rendered?.html} />
+        <p class="author">by: {author.data.name}</p>
+      </li>
+    })}
+  </ul>
+  <hr />
+  <h1>Posts with Images: </h1>
+  <ul>
+    {postsWithImages.map(async (post) => {
+      return <li class="shadow-lg px-8 py-6 rounded-lg border">
+        <a href={'data/posts/' + post.id}><h2>{post.data.title}</h2></a>
+        <Image src={post.data.cover} alt={post.data.coverAlt} width="500" class="py-4" />
+        <div class="with-images" set:html={post.rendered?.html} />
+      </li>
+    })}
+  </ul>
+  <hr />
+  <h1>Authors: </h1>
+  <ul>
+    {authors.map((author) => (
+      <li>
+        <a href={`data/authors/${author.id}`}><h2>{author.data.name}</h2></a>
+        <p>{author.data.role}</p>
+      </li>
+    ))}
+</MainLayout>;
+
+<style>
+  h1 {
+    color: var(--color-primary);
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    margin-top: 1rem;
+  }
+  h2 {
+    font-weight: 500;
+  }
+  p {
+    color: #aaa;
+    font-style: italic;
+    font-size: small;
+  }
+  hr {
+    margin-top: 2rem;
+    margin-bottom: 5px;
+  }
+
+  .post-content {
+    padding-left: 20px;
+    background: #ccc;
+    max-width: 300px;
+    padding: 10px 15px;
+  }
+
+  .with-images {
+    max-width: 500px;
+    padding: 10px 0;
+  }
+
+  .author {
+    font-size: 10px;
+    color: #777;
+  }
+  .intro {
+    font-size: 1.1rem;
+    color: #333;
+  }
+  .emphasis {
+    color: var(--color-secondary);
+    font-weight: 500;
+  }
+</style>

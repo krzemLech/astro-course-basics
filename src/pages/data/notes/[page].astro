@@ -1,0 +1,39 @@
+---
+import type { Page } from "astro";
+import { getCollection } from "astro:content";
+import MainLayout from "../../../layout/MainLayout.astro";
+import type { CollectionEntry } from "astro:content";
+
+export const prerender = true
+
+export async function getStaticPaths({ paginate }) {
+  let notes = await getCollection("notes");
+  notes.toSorted((a, b) => {
+    // this sorting requires additional refinment for id in zod / collections
+    return +a.id.replace('note-', '') - +b.id.replace('note-', '');
+  });
+  return paginate(notes, { pageSize: 5 });
+};
+
+const { page } = Astro.props as { page: Page<CollectionEntry<'notes'>> };
+console.log("🚀 Page:::", page);
+
+const title = `Notes - Page ${page.currentPage}`;
+---
+
+<MainLayout title={title}>
+  <h1>{title}</h1>
+  <ul class="flex flex-col gap-3 mt-4">
+    {page.data.map((note) => (
+      <li class="border rounded shadow-sm p-2 px-4">
+        <a href={`/data/notes/${note?.id}`}><h2>{note?.data?.title}</h2></a>
+        <p class="text-sm text-slate-600 mt-1">{note?.data?.author}</p>
+      </li>
+    ))}
+  </ul>
+  <nav class="flex gap-2 mt-4">
+    {page.url.prev &&<a href={page.url.prev}>&laquo;</a>}
+    <p>Page {page.currentPage}</p>
+    {page.url.next && <a href={page.url.next}>&raquo;</a>}
+  </nav>
+</MainLayout>

@@ -1,0 +1,33 @@
+---
+import type { GetStaticPaths } from "astro";
+import MainLayout from "../../../layout/MainLayout.astro";
+import { getCollection } from "astro:content";
+
+export const prerender = true;
+
+export const getStaticPaths = (async () => {
+  let notes = await getCollection("notes");
+  return notes.map((note) => {
+    return {
+      params: {
+        note: note.id,
+      },
+      props: {
+        note,
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { note } = Astro.props;
+console.log("🚀 Note:::", note);
+const noteData = note || { data: {} };
+const content = noteData.rendered?.html || 'no content';
+---
+<MainLayout>
+  <div class="border rounded px-4 py-3 shadow-md">
+    <h2 class="font-semibold">{noteData.data.title}</h2>
+    <p class="text-xs text-slate-400 mb-2 italic">by {noteData.data.author}</p>
+    <div set:html={content} />
+  </div>
+</MainLayout>

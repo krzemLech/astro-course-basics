@@ -22,8 +22,13 @@ const { title } = Astro.props;
 	</body>
 </html>
 
-<style>
+<style is:global>
 	@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+	:root {
+		--color-primary: #0070f3;
+		--color-secondary: #f81ce5;
+	}
 
 	body {
 		font-family: "Raleway", serif;
@@ -32,4 +37,34 @@ const { title } = Astro.props;
 		padding: 0;
 		box-sizing: border-box;
 	}
+
+	a {
+		color: #0070f3;
+		text-decoration: none;
+	}
+
+	li {
+		list-style-type: none;
+		padding-left: 20px;
+	}
+
+	// for set:html container, has to have is:global directive
+	.post-content {
+		padding-left: 20px;
+		background: #ccc;
+		max-width: 300px;
+		padding: 10px 15px;
+	}
+
+	.post-content h1 {
+		font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #eee;
+  }
+
+  .post-content p {
+    font-size: 11px;
+    color: #777;
+  }
 </style>

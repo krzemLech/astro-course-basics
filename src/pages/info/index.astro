@@ -1,0 +1,29 @@
+---
+import MainLayout from "../../layout/MainLayout.astro"
+
+const posts = await Astro.glob("./*.{md,mdx}")
+console.log(posts)
+---
+
+<MainLayout title="Info">
+  <h1 class="text-4xl font-bold">Info</h1>
+  <p class="text-lg mt-4">This is the info page.</p>
+  <p>Checkout the links below:</p>
+  <ul>
+    {posts.map((post) => (
+      <li>
+        <a href={post.url}>{post.frontmatter.title}</a>
+      </li>
+    ))}
+  </ul>
+</MainLayout>
+
+<style>
+  li {
+    margin-top: 5px;
+  }
+
+  li::before {
+			content: "🍀";
+		}
+</style>
